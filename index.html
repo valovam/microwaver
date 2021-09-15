@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Микроволновка</title>
+      <meta charset="utf-8" />
+      <style>
+         .red{color: red}
+         .green{color: green}
+         .blue{color: blue}
+         #res {
+         font-size: 40px; color: lightgreen;
+         background-color: #444; display: block;
+         width: 100px; margin-bottom: 10px
+         }
+         button {
+         width: 50px; height: 50px; font-size: 20px
+         }
+         hr {width: 200px}
+         #alert {margin-top: 10px}
+      </style>
+      <script>
+         var res = 0;
+         var txt = "";
+         var nom = 0;
+         function p1(){
+            res++;
+            nom++;
+            txt = txt + nom + ") +1; ";
+            vivod();
+         }
+         function p2(){
+            res=res*2;
+            nom++;
+            txt = txt + nom + ") x2; ";
+            vivod();
+         }
+         function sbros(){
+            res=0;
+            nom=0;
+            txt = "";
+            vivod();
+            document.getElementById("alert").innerHTML = "";
+            document.getElementById("p1").disabled = false;
+            document.getElementById("p2").disabled = false;
+         }
+         function vivod(a){
+            var res_obj = document.getElementById("res");
+            var command_obj = document.getElementById("command");
+            res_obj.innerHTML = res;
+            command_obj.innerHTML = txt;
+            if (res==99 && nom==10) viv_alert("<p class='green'>Прекрасно! Вы применили минимально возможное число команд ("+nom+")!</p>");
+            if (res==99 && nom==11) viv_alert("<p class='blue'>Отлично! Но использованное Вами число команд ("+nom+") можно чуть уменьшить.</p>");
+            if (res==99 && nom>11) viv_alert("<p class='red'>Число выданных команд ("+nom+") слишком неоптимально!</p>");
+            if (res>99) viv_alert("<p class='red'>Перебор! ("+res+" вместо 99)</p>");
+         }
+         function viv_alert(s){
+            document.getElementById("alert").innerHTML = s;
+            document.getElementById("p1").disabled = true;
+            document.getElementById("p2").disabled = true;
+         }
+      </script>
+   </head>
+   <body onload="vivod()">
+      <center>
+         <h1>Микроволновка</h1>
+         <p>Установите 99 минимальным числом команд</p>
+         <span id="res"></span>
+         <button id="p1" onclick="p1()">+1</button>
+         <button id="p2" onclick="p2()">x2</button>
+         <button onclick="sbros()">Сбр.</button>
+         <div id="alert"></div>
+         <div id="command"></div>
+      </center>
+   </body>
+</html>
